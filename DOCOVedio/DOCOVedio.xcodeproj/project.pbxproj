@@ -14,14 +14,19 @@
 		2DCA68651832616600075145 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCA68641832616600075145 /* main.m */; };
 		2DCA68691832616600075145 /* DCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCA68681832616600075145 /* DCAppDelegate.m */; };
 		2DCA686C1832616600075145 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DCA686A1832616600075145 /* Main.storyboard */; };
-		2DCA686F1832616600075145 /* DCFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCA686E1832616600075145 /* DCFirstViewController.m */; };
-		2DCA68721832616600075145 /* DCSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCA68711832616600075145 /* DCSecondViewController.m */; };
 		2DCA68741832616600075145 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DCA68731832616600075145 /* Images.xcassets */; };
 		2DCA687B1832616600075145 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCA687A1832616600075145 /* XCTest.framework */; };
 		2DCA687C1832616600075145 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCA68581832616600075145 /* Foundation.framework */; };
 		2DCA687D1832616600075145 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCA685C1832616600075145 /* UIKit.framework */; };
 		2DCA68851832616600075145 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2DCA68831832616600075145 /* InfoPlist.strings */; };
 		2DCA68871832616600075145 /* DOCOVedioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCA68861832616600075145 /* DOCOVedioTests.m */; };
+		2DD3F7031833A93600F712E5 /* DCLastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7021833A93600F712E5 /* DCLastViewController.m */; };
+		2DD3F7061833A94D00F712E5 /* DCNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7051833A94D00F712E5 /* DCNewViewController.m */; };
+		2DD3F7091833A95F00F712E5 /* DCCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7081833A95F00F712E5 /* DCCollectViewController.m */; };
+		2DD3F70C1833A97000F712E5 /* DCDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F70B1833A97000F712E5 /* DCDownloadViewController.m */; };
+		2DD3F70F1833A9F300F712E5 /* DCCollecttionViewControoler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F70E1833A9F300F712E5 /* DCCollecttionViewControoler.m */; };
+		2DD3F7121833AA0A00F712E5 /* DCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7111833AA0A00F712E5 /* DCTableViewController.m */; };
+		2DD3F7171833AD1000F712E5 /* UIView+DCView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7161833AD1000F712E5 /* UIView+DCView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,16 +51,31 @@
 		2DCA68671832616600075145 /* DCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCAppDelegate.h; sourceTree = "<group>"; };
 		2DCA68681832616600075145 /* DCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCAppDelegate.m; sourceTree = "<group>"; };
 		2DCA686B1832616600075145 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2DCA686D1832616600075145 /* DCFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCFirstViewController.h; sourceTree = "<group>"; };
-		2DCA686E1832616600075145 /* DCFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCFirstViewController.m; sourceTree = "<group>"; };
-		2DCA68701832616600075145 /* DCSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DCSecondViewController.h; sourceTree = "<group>"; };
-		2DCA68711832616600075145 /* DCSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DCSecondViewController.m; sourceTree = "<group>"; };
 		2DCA68731832616600075145 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2DCA68791832616600075145 /* DOCOVedioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DOCOVedioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DCA687A1832616600075145 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2DCA68821832616600075145 /* DOCOVedioTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DOCOVedioTests-Info.plist"; sourceTree = "<group>"; };
 		2DCA68841832616600075145 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2DCA68861832616600075145 /* DOCOVedioTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DOCOVedioTests.m; sourceTree = "<group>"; };
+		2DD3F7011833A93600F712E5 /* DCLastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCLastViewController.h; sourceTree = "<group>"; };
+		2DD3F7021833A93600F712E5 /* DCLastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCLastViewController.m; sourceTree = "<group>"; };
+		2DD3F7041833A94D00F712E5 /* DCNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCNewViewController.h; sourceTree = "<group>"; };
+		2DD3F7051833A94D00F712E5 /* DCNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCNewViewController.m; sourceTree = "<group>"; };
+		2DD3F7071833A95F00F712E5 /* DCCollectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCollectViewController.h; sourceTree = "<group>"; };
+		2DD3F7081833A95F00F712E5 /* DCCollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCollectViewController.m; sourceTree = "<group>"; };
+		2DD3F70A1833A97000F712E5 /* DCDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCDownloadViewController.h; sourceTree = "<group>"; };
+		2DD3F70B1833A97000F712E5 /* DCDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCDownloadViewController.m; sourceTree = "<group>"; };
+		2DD3F70D1833A9F300F712E5 /* DCCollecttionViewControoler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCollecttionViewControoler.h; sourceTree = "<group>"; };
+		2DD3F70E1833A9F300F712E5 /* DCCollecttionViewControoler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCollecttionViewControoler.m; sourceTree = "<group>"; };
+		2DD3F7101833AA0A00F712E5 /* DCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTableViewController.h; sourceTree = "<group>"; };
+		2DD3F7111833AA0A00F712E5 /* DCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTableViewController.m; sourceTree = "<group>"; };
+		2DD3F7151833AD1000F712E5 /* UIView+DCView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DCView.h"; sourceTree = "<group>"; };
+		2DD3F7161833AD1000F712E5 /* UIView+DCView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DCView.m"; sourceTree = "<group>"; };
+		2DD3F71A1833AD4D00F712E5 /* configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = configure.h; sourceTree = "<group>"; };
+		2DD3F71B1833AE5D00F712E5 /* toolheaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = toolheaders.h; sourceTree = "<group>"; };
+		2DD3F71C1833AE6B00F712E5 /* objectheaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objectheaders.h; sourceTree = "<group>"; };
+		2DD3F71D1833BB8D00F712E5 /* enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enums.h; sourceTree = "<group>"; };
+		2DD3F7221833DEEC00F712E5 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,13 +135,24 @@
 		2DCA685E1832616600075145 /* DOCOVedio */ = {
 			isa = PBXGroup;
 			children = (
+				2DD3F7181833AD1400F712E5 /* init */,
+				2DD3F7141833ACE900F712E5 /* tools */,
+				2DD3F7131833ACD100F712E5 /* objects */,
 				2DCA68671832616600075145 /* DCAppDelegate.h */,
 				2DCA68681832616600075145 /* DCAppDelegate.m */,
 				2DCA686A1832616600075145 /* Main.storyboard */,
-				2DCA686D1832616600075145 /* DCFirstViewController.h */,
-				2DCA686E1832616600075145 /* DCFirstViewController.m */,
-				2DCA68701832616600075145 /* DCSecondViewController.h */,
-				2DCA68711832616600075145 /* DCSecondViewController.m */,
+				2DD3F7011833A93600F712E5 /* DCLastViewController.h */,
+				2DD3F7021833A93600F712E5 /* DCLastViewController.m */,
+				2DD3F7041833A94D00F712E5 /* DCNewViewController.h */,
+				2DD3F7051833A94D00F712E5 /* DCNewViewController.m */,
+				2DD3F7071833A95F00F712E5 /* DCCollectViewController.h */,
+				2DD3F7081833A95F00F712E5 /* DCCollectViewController.m */,
+				2DD3F70A1833A97000F712E5 /* DCDownloadViewController.h */,
+				2DD3F70B1833A97000F712E5 /* DCDownloadViewController.m */,
+				2DD3F70D1833A9F300F712E5 /* DCCollecttionViewControoler.h */,
+				2DD3F70E1833A9F300F712E5 /* DCCollecttionViewControoler.m */,
+				2DD3F7101833AA0A00F712E5 /* DCTableViewController.h */,
+				2DD3F7111833AA0A00F712E5 /* DCTableViewController.m */,
 				2DCA68731832616600075145 /* Images.xcassets */,
 				2DCA685F1832616600075145 /* Supporting Files */,
 			);
@@ -155,6 +186,34 @@
 				2DCA68831832616600075145 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2DD3F7131833ACD100F712E5 /* objects */ = {
+			isa = PBXGroup;
+			children = (
+				2DD3F7151833AD1000F712E5 /* UIView+DCView.h */,
+				2DD3F7161833AD1000F712E5 /* UIView+DCView.m */,
+			);
+			name = objects;
+			sourceTree = "<group>";
+		};
+		2DD3F7141833ACE900F712E5 /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				2DD3F71D1833BB8D00F712E5 /* enums.h */,
+				2DD3F7221833DEEC00F712E5 /* common.h */,
+			);
+			name = tools;
+			sourceTree = "<group>";
+		};
+		2DD3F7181833AD1400F712E5 /* init */ = {
+			isa = PBXGroup;
+			children = (
+				2DD3F71A1833AD4D00F712E5 /* configure.h */,
+				2DD3F71B1833AE5D00F712E5 /* toolheaders.h */,
+				2DD3F71C1833AE6B00F712E5 /* objectheaders.h */,
+			);
+			name = init;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,10 +314,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DD3F7121833AA0A00F712E5 /* DCTableViewController.m in Sources */,
+				2DD3F7061833A94D00F712E5 /* DCNewViewController.m in Sources */,
+				2DD3F70C1833A97000F712E5 /* DCDownloadViewController.m in Sources */,
 				2DCA68651832616600075145 /* main.m in Sources */,
-				2DCA68721832616600075145 /* DCSecondViewController.m in Sources */,
-				2DCA686F1832616600075145 /* DCFirstViewController.m in Sources */,
+				2DD3F7171833AD1000F712E5 /* UIView+DCView.m in Sources */,
+				2DD3F7031833A93600F712E5 /* DCLastViewController.m in Sources */,
+				2DD3F7091833A95F00F712E5 /* DCCollectViewController.m in Sources */,
 				2DCA68691832616600075145 /* DCAppDelegate.m in Sources */,
+				2DD3F70F1833A9F300F712E5 /* DCCollecttionViewControoler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +533,7 @@
 				2DCA688C1832616600075145 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2DCA688D1832616600075145 /* Build configuration list for PBXNativeTarget "DOCOVedioTests" */ = {
 			isa = XCConfigurationList;
@@ -477,6 +542,7 @@
 				2DCA688F1832616600075145 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
