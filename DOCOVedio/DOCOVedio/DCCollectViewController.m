@@ -10,11 +10,13 @@
 #import "DCCollecttionViewControoler.h"
 #import "DCTableViewController.h"
 
-@interface DCCollectViewController ()
+@interface DCCollectViewController ()<UIScrollViewDelegate>
 {
     UISegmentedControl *segment;
-    UIScrollView  *scrollerView;
+    UIScrollView *scrollerView;
     char contentTag[2];
+    DCTableViewController *tabletView;
+    DCCollecttionViewControoler *collectView;
 }
 @end
 
@@ -22,43 +24,49 @@
 
 #pragma mark -
 #pragma mark UISegmentedControl
-- (void)reachableViewAtIndex:(NSInteger)index
+- (void)reachableViewAtIndex:(NSInteger)index scroller:(BOOL)show
 {
+    segment.selectedSegmentIndex = index;
     if (contentTag[index] == NO) {
         if (index==0) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"bundle:nil];
-            DCTableViewController *tabletView = [storyboard instantiateViewControllerWithIdentifier:@"DCTableViewController" ];
+            tabletView = [[DCTableViewController alloc] initWithNibName:nil bundle:nil];
+            tabletView.view.size = CGSizeMake( self.view.width, self.view.height-49-64);
+            collectView.view.origin = CGPointMake(0,0);
             tabletView.view.tag = 1000+index;
-            tabletView.view.backgroundColor = [UIColor redColor];
             contentTag[index]=YES;
-            [(UIScrollView*)self.view addSubview:tabletView.view];
-            [(UIScrollView*)self.view scrollRectToVisible:tabletView.view.frame animated:YES];
+            
+            [(UIScrollView*)scrollerView addSubview:tabletView.view];
         }else if (index==1){
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main"bundle:nil];
-            DCCollecttionViewControoler *collectView = [storyboard instantiateViewControllerWithIdentifier:@"DCCollecttionViewControoler"];
+            collectView = [[DCCollecttionViewControoler alloc] initWithNibName:@"ExampleViewController" bundle:nil];
             collectView.view.tag = 1000+index;
-            collectView.view.backgroundColor = [UIColor greenColor];
             contentTag[index]=YES;
-            [(UIScrollView*)self.view addSubview:collectView.view];
-            [(UIScrollView*)self.view scrollRectToVisible:collectView.view.frame animated:YES];
+            collectView.view.size = CGSizeMake( self.view.width, self.view.height-60);
+            collectView.view.origin = CGPointMake(self.view.width,0);
+            
+            [(UIScrollView*)scrollerView addSubview:collectView.view];
         }else{
         
         }
     }
     
-    UIView *collectView = [self.view viewWithTag:1000+index];
-    if (self.interfaceOrientation <UIInterfaceOrientationPortraitUpsideDown) {
-        collectView.frame = CGRectMake(index*AppFrame.height, 0, AppFrame.height, AppFrame.width);
-        [(UIScrollView*)self.view scrollRectToVisible:collectView.frame animated:YES];
-    }else{
-        collectView.frame = CGRectMake(index*AppFrame.height, 0, AppFrame.height, self.view.height-49);
-        [(UIScrollView*)self.view scrollRectToVisible:collectView.frame animated:YES];
+    if (show) {
+        UIView *tempView = [self.view viewWithTag:1000+index];
+        [(UIScrollView*)scrollerView scrollRectToVisible:tempView.frame animated:YES];
     }
 }
 //seg
 - (void)changeNewView:(UISegmentedControl*)seg
 {
-    [self reachableViewAtIndex:seg.selectedSegmentIndex];
+    [self reachableViewAtIndex:seg.selectedSegmentIndex scroller:YES];
+}
+
+#pragma mark -
+#pragma mark - (void)scrollViewDidScroll:(UIScrollView *)scrollView;   
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat indexf = scrollView.contentOffset.x/scrollView.width;
+    NSInteger index = ceil(indexf);
+    [self reachableViewAtIndex:index scroller:NO];
 }
 
 #pragma mark -
@@ -78,65 +86,37 @@
 {
 	// Do any additional setup after loading the view.
     if (!scrollerView) {
-        scrollerView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-        scrollerView.pagingEnabled = YES;
-        self.view = scrollerView;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotateViewController) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+            scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.height, self.view.width)];
+            scrollerView.delegate = self;
+            scrollerView.pagingEnabled = YES;
+            [self.view addSubview:scrollerView];
     }
     
     if (!segment) {
-        segment = [[UISegmentedControl alloc] initWithItems:@[@"普通",@"网状"]];
-        [segment addTarget:self
-                    action:@selector(changeNewView:)
-          forControlEvents:UIControlEventValueChanged];
-        segment.frame = CGRectMake(0, 0, 200, 36);
-        [self.navigationController.navigationBar addSubview:segment];
+            segment = [[UISegmentedControl alloc] initWithItems:@[@"普通",@"网状"]];
+            segment.frame = CGRectMake(0, 0, 200, 36);
+        
+            [segment addTarget:self action:@selector(changeNewView:) forControlEvents:UIControlEventValueChanged];
+            [self.navigationController.navigationBar addSubview:segment];
     }
     
-    if (self.interfaceOrientation > UIInterfaceOrientationLandscapeLeft) {
-        segment.center = CGPointMake(AppFrame.height*0.5,
-                                     self.navigationController.navigationBar.centerY*0.5);
-        ((UIScrollView*)self.view).contentSize = CGSizeMake(AppFrame.width*2,AppFrame.height);
-    }else{
-        segment.center = CGPointMake(AppFrame.width*0.5,
-                                     self.navigationController.navigationBar.centerY*0.5);
-        ((UIScrollView*)self.view).contentSize = CGSizeMake(AppFrame.width*2, AppFrame.width);
-    }
+    segment.center = CGPointMake(AppFrame.height*0.5,self.navigationController.navigationBar.centerY*0.5);
+    scrollerView.contentSize = CGSizeMake(self.view.height*2, self.view.width-49-64);
+    
+    [self reachableViewAtIndex:0 scroller:YES];
 }
 
-- (void)rotateViewController
-{
-    [(UIScrollView*)self.view setPagingEnabled:YES];
-    if (self.interfaceOrientation > UIInterfaceOrientationPortraitUpsideDown) {
-        segment.center = CGPointMake(AppFrame.width*0.5,
-                                     self.navigationController.navigationBar.centerY*0.5);
-        ((UIScrollView*)self.view).contentSize = CGSizeMake(AppFrame.height*2, AppFrame.width);
-//
-//        UIView *tableView = [self.view viewWithTag:1000+0];
-//        tableView.frame = CGRectMake(0, 0, AppFrame.width, AppFrame.height);
-//        
-//        UIView *collectView = [self.view viewWithTag:1000+1];
-//        collectView.frame = CGRectMake(AppFrame.width, 0, AppFrame.width, AppFrame.height);
-    }else{
-        segment.center = CGPointMake(AppFrame.height*0.5,
-                                     self.navigationController.navigationBar.centerY*0.5);
-        ((UIScrollView*)self.view).contentSize = CGSizeMake(AppFrame.height*2,self.view.height);
-        
-//        UIView *tableView = [self.view viewWithTag:1000+0];
-//        tableView.frame = CGRectMake(0, 0, AppFrame.height, AppFrame.width);
-//        UIView *collectView = [self.view viewWithTag:1000+1];
-//        collectView.frame = CGRectMake(AppFrame.height, 0, AppFrame.height, AppFrame.width);
-    }
-}
 - (void)viewDidUnload
 {
     segment =nil;
     memset(contentTag, 0, sizeof(NO));
+    scrollerView = nil;
+    tabletView = nil;
+    collectView = nil;
 }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 @end

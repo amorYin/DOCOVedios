@@ -12,4 +12,14 @@
 #define AppFrame [[UIScreen mainScreen] bounds].size
 #define AppSize [[UIScreen mainScreen] bounds]
 
+#define selectedTag 100
+#define cellSize 200
+#define textLabelHeight 20
+#define cellAAcitve 1.0
+#define cellADeactive 0.3
+#define cellAHidden 0.0
+#define defaultFontSize 10.0
+
+#define numOfimg 20
+
 #endif
