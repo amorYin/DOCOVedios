@@ -15,6 +15,7 @@
     UISegmentedControl *segment;
     UIScrollView *scrollerView;
     char contentTag[2];
+    BOOL isSelect;
     DCTableViewController *tabletView;
     DCCollecttionViewControoler *collectView;
 }
@@ -22,24 +23,42 @@
 
 @implementation DCDownloadViewController
 #pragma mark -
+#pragma mark - UIBarButtonItem
+- (void)setRightBarButton:(BOOL)y
+{
+    @autoreleasepool {
+        if (!y) {
+            self.navigationItem.rightBarButtonItem = nil;
+        }else{
+            UIBarButtonItem *delete_done = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(deletePituresInRange:)];
+            [self.navigationItem setRightBarButtonItem:delete_done];
+        }
+    }
+}
+- (void)deletePituresInRange:(NSRange)range
+{
+    
+}
+#pragma mark -
 #pragma mark UISegmentedControl
 - (void)reachableViewAtIndex:(NSInteger)index scroller:(BOOL)show
 {
     segment.selectedSegmentIndex = index;
+    [self setRightBarButton:index==1];
     if (contentTag[index] == NO) {
         if (index==0) {
             tabletView = [[DCTableViewController alloc] initWithNibName:nil bundle:nil];
-            tabletView.view.size = CGSizeMake( self.view.width, self.view.height-49-64);
+            tabletView.view.size = CGSizeMake( self.view.height, self.view.width-49-71);
             collectView.view.origin = CGPointMake(0,0);
             tabletView.view.tag = 1000+index;
             contentTag[index]=YES;
             
             [(UIScrollView*)scrollerView addSubview:tabletView.view];
         }else if (index==1){
-            collectView = [[DCCollecttionViewControoler alloc] initWithNibName:@"ExampleViewController" bundle:nil];
+            collectView = [[DCCollecttionViewControoler alloc] initWithNibName:nil bundle:nil];
             collectView.view.tag = 1000+index;
             contentTag[index]=YES;
-            collectView.view.size = CGSizeMake( self.view.width, self.view.height-60);
+            collectView.view.size = CGSizeMake( self.view.width, self.view.height-49-71);
             collectView.view.origin = CGPointMake(self.view.width,0);
             
             [(UIScrollView*)scrollerView addSubview:collectView.view];
@@ -56,6 +75,7 @@
 //seg
 - (void)changeNewView:(UISegmentedControl*)seg
 {
+    isSelect = YES;
     [self reachableViewAtIndex:seg.selectedSegmentIndex scroller:YES];
 }
 
@@ -63,11 +83,16 @@
 #pragma mark - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (isSelect) {return;}
     CGFloat indexf = scrollView.contentOffset.x/scrollView.width;
     NSInteger index = ceil(indexf);
     [self reachableViewAtIndex:index scroller:NO];
 }
 
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    isSelect = NO;
+}
 #pragma mark -
 #pragma mark UIViewController
 //view

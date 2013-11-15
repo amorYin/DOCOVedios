@@ -9,18 +9,22 @@
 #import "DCCollecttionViewControoler.h"
 #import "UIView+Positioning.h"
 #import "DCCollectionCell.h"
+#import "DCCollectionLayout.h"
+#import "AFCollectionViewFlowLargeLayout.h"
 
-
-
- static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
+static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 @interface DCCollecttionViewControoler ()
 {
     NSIndexPath *lastAccessed;
+    BOOL  editing;
+    NSMutableDictionary *selectedIdx;
 }
-
+@property (nonatomic, strong) DCCollectionLayout *largeLayout;
 @end
 
 @implementation DCCollecttionViewControoler
+
+#pragma mark -
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,19 +35,22 @@
     return self;
 }
 
+- (void)loadView
+{
+        selectedIdx = [[NSMutableDictionary alloc] init];
+    self.largeLayout = [[DCCollectionLayout alloc] init];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.largeLayout];
+    [self.collectionView registerClass:[DCCollectionCell class] forCellWithReuseIdentifier:CellIdentifierLandscape];
+    [self.collectionView setAllowsMultipleSelection:YES];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    selectedIdx = [[NSMutableDictionary alloc] init];
-    
-    [self.collectionView registerClass:[DCCollectionCell class] forCellWithReuseIdentifier:CellIdentifierLandscape];
-    [self.collectionView setAllowsMultipleSelection:YES];
-    
-    UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    [self.view addGestureRecognizer:gestureRecognizer];
-    [gestureRecognizer setMinimumNumberOfTouches:1];
-    [gestureRecognizer setMaximumNumberOfTouches:1];
+//    UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+//    [self.view addGestureRecognizer:gestureRecognizer];
+//    [gestureRecognizer setMinimumNumberOfTouches:1];
+//    [gestureRecognizer setMaximumNumberOfTouches:1];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,6 +58,11 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)layoutSubView:(BOOL)edit;
+{
+    editing = edit;
+    [self.collectionView reloadData];
+}
 
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -62,22 +74,13 @@
     return numOfimg * 4;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    
-    UICollectionReusableView *reusableview = nil;
-    
-    return reusableview;
-}
-
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     DCCollectionCell *cell = (DCCollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifierLandscape forIndexPath:indexPath];
     
     if (![cell viewWithTag:selectedTag])
     {
-        UILabel *selected = [[UILabel alloc] initWithFrame:CGRectMake(0, cellSize - textLabelHeight, cellSize, textLabelHeight)];
+        UILabel *selected = [[UILabel alloc] initWithFrame:CGRectMake(0, cellSizeHight - textLabelHeight, cellSizeWidth, textLabelHeight)];
         selected.backgroundColor = [UIColor darkGrayColor];
         selected.textColor = [UIColor whiteColor];
         selected.text = @"SELECTED";
@@ -89,9 +92,14 @@
         [cell.contentView addSubview:selected];
     }
     
-    cell.imgaeView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.png", [indexPath row] % numOfimg]];
-    [[cell viewWithTag:selectedTag] setAlpha:cellAHidden];
-    cell.imgaeView.alpha = cellADeactive;
+    cell.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.png", [indexPath row] % numOfimg]];
+    
+    if (editing)
+    {
+        [[cell viewWithTag:selectedTag] setAlpha:cellAHidden];
+        cell.imageView.alpha = cellADeactive;
+    }
+
     
     // You supposed to highlight the selected cell in here; This is an example
     bool cellSelected = [selectedIdx objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
@@ -99,12 +107,7 @@
     
     return cell;
 }
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return CGSizeMake(cellSize, cellSize);
-}
-
+//
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DCCollectionCell *cell = (DCCollectionCell*)[collectionView cellForItemAtIndexPath:indexPath];
@@ -123,8 +126,16 @@
 
 - (void) setCellSelection:(DCCollectionCell *)cell selected:(bool)selected
 {
-    cell.imgaeView.alpha = selected ? cellAAcitve : cellADeactive;
-    [cell viewWithTag:selectedTag].alpha = selected ? cellAAcitve : cellAHidden;
+    if (editing)
+    {
+        cell.imageView.alpha = selected ? cellAAcitve : cellADeactive;
+        [cell viewWithTag:selectedTag].alpha = selected ? cellAAcitve : cellAHidden;
+        
+    }else
+    {
+        
+    }
+
 }
 
 - (void) resetSelectedCells

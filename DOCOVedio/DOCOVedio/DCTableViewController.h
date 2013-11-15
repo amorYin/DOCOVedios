@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DCTableViewController : UITableViewController
-
+- (void)layoutSubView:(BOOL)edit;
 @end

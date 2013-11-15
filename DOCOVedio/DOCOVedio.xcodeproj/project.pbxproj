@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DC17D8618364ED9004F22EA /* DCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D8418364ED9004F22EA /* DCTableViewController.m */; };
+		2DC17D8B1836691A004F22EA /* AFCollectionViewFlowLargeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D8A1836691A004F22EA /* AFCollectionViewFlowLargeLayout.m */; };
+		2DC17D8E183678C1004F22EA /* DCTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D8D183678C1004F22EA /* DCTableViewCell.m */; };
 		2DCA68591832616600075145 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCA68581832616600075145 /* Foundation.framework */; };
 		2DCA685B1832616600075145 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCA685A1832616600075145 /* CoreGraphics.framework */; };
 		2DCA685D1832616600075145 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCA685C1832616600075145 /* UIKit.framework */; };
@@ -25,9 +28,8 @@
 		2DD3F7091833A95F00F712E5 /* DCCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7081833A95F00F712E5 /* DCCollectViewController.m */; };
 		2DD3F70C1833A97000F712E5 /* DCDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F70B1833A97000F712E5 /* DCDownloadViewController.m */; };
 		2DD3F70F1833A9F300F712E5 /* DCCollecttionViewControoler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F70E1833A9F300F712E5 /* DCCollecttionViewControoler.m */; };
-		2DD3F7121833AA0A00F712E5 /* DCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7111833AA0A00F712E5 /* DCTableViewController.m */; };
 		2DD3F7171833AD1000F712E5 /* UIView+DCView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7161833AD1000F712E5 /* UIView+DCView.m */; };
-		52AD15FB1834AB1E0053289D /* CircleLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AD15FA1834AB1E0053289D /* CircleLayout.m */; };
+		52AD15FB1834AB1E0053289D /* DCCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AD15FA1834AB1E0053289D /* DCCollectionLayout.m */; };
 		52AD15FE1834B0480053289D /* DCCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AD15FD1834B0480053289D /* DCCollectionCell.m */; };
 		52AD16501834C4740053289D /* UIView+Positioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AD164F1834C4740053289D /* UIView+Positioning.m */; };
 		52AD16661834C61C0053289D /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AD16521834C61C0053289D /* 0.png */; };
@@ -50,7 +52,6 @@
 		52AD16771834C61C0053289D /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AD16631834C61C0053289D /* 7.png */; };
 		52AD16781834C61C0053289D /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AD16641834C61C0053289D /* 8.png */; };
 		52AD16791834C61C0053289D /* 9.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AD16651834C61C0053289D /* 9.png */; };
-		52AD167B1834C6860053289D /* ExampleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52AD167A1834C6860053289D /* ExampleViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DC17D8418364ED9004F22EA /* DCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTableViewController.m; sourceTree = "<group>"; };
+		2DC17D88183666A2004F22EA /* DCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTableViewController.h; sourceTree = "<group>"; };
+		2DC17D891836691A004F22EA /* AFCollectionViewFlowLargeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFCollectionViewFlowLargeLayout.h; sourceTree = "<group>"; };
+		2DC17D8A1836691A004F22EA /* AFCollectionViewFlowLargeLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFCollectionViewFlowLargeLayout.m; sourceTree = "<group>"; };
+		2DC17D8C183678C1004F22EA /* DCTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTableViewCell.h; sourceTree = "<group>"; };
+		2DC17D8D183678C1004F22EA /* DCTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTableViewCell.m; sourceTree = "<group>"; };
 		2DCA68551832616600075145 /* DOCOVedio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOCOVedio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DCA68581832616600075145 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2DCA685A1832616600075145 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -91,8 +98,6 @@
 		2DD3F70B1833A97000F712E5 /* DCDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCDownloadViewController.m; sourceTree = "<group>"; };
 		2DD3F70D1833A9F300F712E5 /* DCCollecttionViewControoler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCollecttionViewControoler.h; sourceTree = "<group>"; };
 		2DD3F70E1833A9F300F712E5 /* DCCollecttionViewControoler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCollecttionViewControoler.m; sourceTree = "<group>"; };
-		2DD3F7101833AA0A00F712E5 /* DCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCTableViewController.h; sourceTree = "<group>"; };
-		2DD3F7111833AA0A00F712E5 /* DCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCTableViewController.m; sourceTree = "<group>"; };
 		2DD3F7151833AD1000F712E5 /* UIView+DCView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DCView.h"; sourceTree = "<group>"; };
 		2DD3F7161833AD1000F712E5 /* UIView+DCView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DCView.m"; sourceTree = "<group>"; };
 		2DD3F71A1833AD4D00F712E5 /* configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = configure.h; sourceTree = "<group>"; };
@@ -100,8 +105,8 @@
 		2DD3F71C1833AE6B00F712E5 /* objectheaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = objectheaders.h; sourceTree = "<group>"; };
 		2DD3F71D1833BB8D00F712E5 /* enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enums.h; sourceTree = "<group>"; };
 		2DD3F7221833DEEC00F712E5 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		52AD15F91834AB1E0053289D /* CircleLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleLayout.h; sourceTree = "<group>"; };
-		52AD15FA1834AB1E0053289D /* CircleLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleLayout.m; sourceTree = "<group>"; };
+		52AD15F91834AB1E0053289D /* DCCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCollectionLayout.h; sourceTree = "<group>"; };
+		52AD15FA1834AB1E0053289D /* DCCollectionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCollectionLayout.m; sourceTree = "<group>"; };
 		52AD15FC1834B0480053289D /* DCCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCCollectionCell.h; sourceTree = "<group>"; };
 		52AD15FD1834B0480053289D /* DCCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCCollectionCell.m; sourceTree = "<group>"; };
 		52AD164E1834C4740053289D /* UIView+Positioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Positioning.h"; sourceTree = "<group>"; };
@@ -126,7 +131,6 @@
 		52AD16631834C61C0053289D /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
 		52AD16641834C61C0053289D /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
 		52AD16651834C61C0053289D /* 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9.png; sourceTree = "<group>"; };
-		52AD167A1834C6860053289D /* ExampleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExampleViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,8 +206,8 @@
 				2DD3F70B1833A97000F712E5 /* DCDownloadViewController.m */,
 				2DD3F70D1833A9F300F712E5 /* DCCollecttionViewControoler.h */,
 				2DD3F70E1833A9F300F712E5 /* DCCollecttionViewControoler.m */,
-				2DD3F7101833AA0A00F712E5 /* DCTableViewController.h */,
-				2DD3F7111833AA0A00F712E5 /* DCTableViewController.m */,
+				2DC17D88183666A2004F22EA /* DCTableViewController.h */,
+				2DC17D8418364ED9004F22EA /* DCTableViewController.m */,
 				2DCA68731832616600075145 /* Images.xcassets */,
 				2DCA685F1832616600075145 /* Supporting Files */,
 			);
@@ -247,11 +251,14 @@
 				52AD164F1834C4740053289D /* UIView+Positioning.m */,
 				2DD3F7151833AD1000F712E5 /* UIView+DCView.h */,
 				2DD3F7161833AD1000F712E5 /* UIView+DCView.m */,
-				52AD15F91834AB1E0053289D /* CircleLayout.h */,
-				52AD15FA1834AB1E0053289D /* CircleLayout.m */,
+				2DC17D891836691A004F22EA /* AFCollectionViewFlowLargeLayout.h */,
+				2DC17D8A1836691A004F22EA /* AFCollectionViewFlowLargeLayout.m */,
+				52AD15F91834AB1E0053289D /* DCCollectionLayout.h */,
+				52AD15FA1834AB1E0053289D /* DCCollectionLayout.m */,
 				52AD15FC1834B0480053289D /* DCCollectionCell.h */,
 				52AD15FD1834B0480053289D /* DCCollectionCell.m */,
-				52AD167A1834C6860053289D /* ExampleViewController.xib */,
+				2DC17D8C183678C1004F22EA /* DCTableViewCell.h */,
+				2DC17D8D183678C1004F22EA /* DCTableViewCell.m */,
 			);
 			name = objects;
 			sourceTree = "<group>";
@@ -392,7 +399,6 @@
 				52AD166B1834C61C0053289D /* 13.png in Resources */,
 				52AD16711834C61C0053289D /* 19.png in Resources */,
 				52AD16681834C61C0053289D /* 10.png in Resources */,
-				52AD167B1834C6860053289D /* ExampleViewController.xib in Resources */,
 				2DCA68631832616600075145 /* InfoPlist.strings in Resources */,
 				52AD166A1834C61C0053289D /* 12.png in Resources */,
 				2DCA686C1832616600075145 /* Main.storyboard in Resources */,
@@ -421,15 +427,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DD3F7121833AA0A00F712E5 /* DCTableViewController.m in Sources */,
 				2DD3F7061833A94D00F712E5 /* DCNewViewController.m in Sources */,
 				52AD15FE1834B0480053289D /* DCCollectionCell.m in Sources */,
 				2DD3F70C1833A97000F712E5 /* DCDownloadViewController.m in Sources */,
-				52AD15FB1834AB1E0053289D /* CircleLayout.m in Sources */,
+				52AD15FB1834AB1E0053289D /* DCCollectionLayout.m in Sources */,
 				2DCA68651832616600075145 /* main.m in Sources */,
+				2DC17D8B1836691A004F22EA /* AFCollectionViewFlowLargeLayout.m in Sources */,
+				2DC17D8E183678C1004F22EA /* DCTableViewCell.m in Sources */,
 				2DD3F7171833AD1000F712E5 /* UIView+DCView.m in Sources */,
 				2DD3F7031833A93600F712E5 /* DCLastViewController.m in Sources */,
 				2DD3F7091833A95F00F712E5 /* DCCollectViewController.m in Sources */,
+				2DC17D8618364ED9004F22EA /* DCTableViewController.m in Sources */,
 				2DCA68691832616600075145 /* DCAppDelegate.m in Sources */,
 				52AD16501834C4740053289D /* UIView+Positioning.m in Sources */,
 				2DD3F70F1833A9F300F712E5 /* DCCollecttionViewControoler.m in Sources */,

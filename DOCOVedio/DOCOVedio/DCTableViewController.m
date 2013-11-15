@@ -2,44 +2,44 @@
 //  DCTableViewController.m
 //  DOCOVedio
 //
-//  Created by amor on 13-11-13.
+//  Created by amor on 13-11-15.
 //  Copyright (c) 2013年 amor. All rights reserved.
 //
 
 #import "DCTableViewController.h"
+#import "DCTableViewCell.h"
 
-static NSString *CellIdentifier = @"CellIdentifier";
-
+static NSString *CellIdentifier = @"DCTableViewController";
 @interface DCTableViewController ()
-{
-    NSArray *array;
-}
+
 @end
 
 @implementation DCTableViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
     }
     return self;
 }
 
+- (void)loadView
+{
+    [super loadView];
+    
+    [self.tableView registerClass:[DCTableViewCell class] forCellReuseIdentifier:CellIdentifier];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     // Uncomment the following line to preserve selection between presentations.
-     self.clearsSelectionOnViewWillAppear = YES;
-    
+    // self.clearsSelectionOnViewWillAppear = NO;
+ 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    array = @[@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1"];
-    //
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,15 +59,20 @@ static NSString *CellIdentifier = @"CellIdentifier";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return array.count;
+    return 20;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return the height for rows
+    return 100.;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     // Configure the cell...
-    cell.textLabel.text = [array objectAtIndex:indexPath.row];
-    
+    cell.textLabel.text = [NSString stringWithFormat:@"%d",indexPath.row];
     return cell;
 }
 
@@ -110,20 +115,22 @@ static NSString *CellIdentifier = @"CellIdentifier";
 }
 */
 
-#pragma mark
+/*
+#pragma mark - Table view delegate
+
+// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-}
-#pragma mark - Navigation
+    // Navigation logic may go here, for example:
+    // Create the next view controller.
+    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
 
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
+    // Push the view controller.
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
-
-
+ 
+ */
 
 @end

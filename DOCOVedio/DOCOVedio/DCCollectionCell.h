@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface DCCollectionCell : UICollectionViewCell
-@property (strong,nonatomic) UIImageView *imgaeView;
+@property (nonatomic, strong) UIImageView *imageView;
+-(void)setImage:(UIImage *)image;
 @end

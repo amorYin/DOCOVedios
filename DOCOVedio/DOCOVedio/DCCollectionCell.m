@@ -7,7 +7,9 @@
 //
 
 #import "DCCollectionCell.h"
+@interface DCCollectionCell ()
 
+@end
 @implementation DCCollectionCell
   - (id)initWithFrame:(CGRect)frame
 {
@@ -15,17 +17,26 @@
     if (self) {
         
         self.contentView.layer.cornerRadius = 10.0;
-        [self.contentView setFrame:CGRectMake(0, 0, cellSize, cellSize)];
-        self.contentView.layer.borderWidth = 1.0f;
+        [self.contentView setFrame:CGRectMake(0, 0, cellSizeWidth, cellSizeHight)];
+//        self.contentView.layer.borderWidth = 1.0f;
         self.contentView.layer.borderColor = [UIColor whiteColor].CGColor;
         
-        _imgaeView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cellSize, cellSize)];
-        [_imgaeView.layer setMasksToBounds:YES];
-        [_imgaeView setClipsToBounds:YES];
-        [self.contentView addSubview:_imgaeView];
-        
-
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectInset(CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame)),30, 30)];
+        self.imageView.origin = CGPointMake(30, 5);
+        self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [self.contentView addSubview:self.imageView];
     }
     return self;
+}
+
+-(void)prepareForReuse
+{
+    [super prepareForReuse];
+    [self setImage:nil];
+}
+
+-(void)setImage:(UIImage *)image
+{
+    self.imageView.image = image;
 }
 @end

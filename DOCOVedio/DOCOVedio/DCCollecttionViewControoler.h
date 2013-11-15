@@ -9,10 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DCCollecttionViewControoler : UICollectionViewController
-{
-    CGPoint dragStartPt;
-    bool dragging;
-    
-    NSMutableDictionary *selectedIdx;
-}
+- (void)layoutSubView:(BOOL)edit;
 @end

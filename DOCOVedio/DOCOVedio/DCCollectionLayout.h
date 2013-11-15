@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CircleLayout : UICollectionViewFlowLayout
+@interface DCCollectionLayout : UICollectionViewFlowLayout
 @property (nonatomic, assign) CGPoint center;
 @property (nonatomic, assign) CGFloat radius;
 @property (nonatomic, assign) NSInteger cellCount;
+@property (nonatomic, assign) NSInteger perLine;
 
 @end
