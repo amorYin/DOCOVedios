@@ -11,11 +11,23 @@
 
 static NSString *CellIdentifier = @"DCTableViewController";
 @interface DCTableViewController ()
-
+{
+    NSIndexPath *lastAccessed;
+    NSMutableDictionary *selectedIdx;
+}
 @end
 
 @implementation DCTableViewController
 
+
+#pragma layout
+- (void)layoutSubView:(BOOL)edit;
+{
+    self.editing  = edit;
+    [self.tableView reloadData];
+}
+
+#pragma view
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -28,7 +40,7 @@ static NSString *CellIdentifier = @"DCTableViewController";
 - (void)loadView
 {
     [super loadView];
-    
+    selectedIdx = [[NSMutableDictionary alloc] init];
     [self.tableView registerClass:[DCTableViewCell class] forCellReuseIdentifier:CellIdentifier];
 }
 - (void)viewDidLoad
@@ -68,14 +80,79 @@ static NSString *CellIdentifier = @"DCTableViewController";
     return 100.;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (DCTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    DCTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     // Configure the cell...
     cell.textLabel.text = [NSString stringWithFormat:@"%d",indexPath.row];
     return cell;
 }
 
+- (void) setCellSelection:(DCTableViewCell *)cell selected:(bool)selected
+{
+    if (self.editing)
+    {
+        cell.imageView.alpha = selected ? cellAAcitve : cellADeactive;
+        [cell viewWithTag:selectedTag].alpha = selected ? cellAAcitve : cellAHidden;
+        
+    }else
+    {
+        cell.imageView.alpha = cellAAcitve;
+        [cell viewWithTag:selectedTag].alpha = cellAHidden;
+    }
+    
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(DCTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (![cell viewWithTag:selectedTag])
+    {
+        UILabel *selected = [[UILabel alloc] initWithFrame:CGRectMake(0, cellSizeHight - textLabelHeight, cellSizeWidth, textLabelHeight)];
+        selected.backgroundColor = [UIColor darkGrayColor];
+        selected.textColor = [UIColor whiteColor];
+        selected.text = @"SELECTED";
+        selected.textAlignment = NSTextAlignmentCenter;
+        selected.font = [UIFont systemFontOfSize:defaultFontSize];
+        selected.tag = selectedTag;
+        selected.alpha = cellAHidden;
+        
+        [cell.contentView addSubview:selected];
+    }
+
+    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.png", [indexPath row] % numOfimg]];
+    
+    if (self.editing)
+    {
+        [[cell viewWithTag:selectedTag] setAlpha:cellAHidden];
+        cell.imageView.alpha = cellADeactive;
+    }else
+    {
+        [selectedIdx removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+    }
+    
+    // You supposed to highlight the selected cell in here; This is an example
+    bool cellSelected = [selectedIdx objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+    [self setCellSelection:cell selected:cellSelected];
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [selectedIdx setValue:@"1" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [selectedIdx removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+}
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

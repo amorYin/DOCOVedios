@@ -16,13 +16,21 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 @interface DCCollecttionViewControoler ()
 {
     NSIndexPath *lastAccessed;
-    BOOL  editing;
     NSMutableDictionary *selectedIdx;
 }
 @property (nonatomic, strong) DCCollectionLayout *largeLayout;
 @end
 
 @implementation DCCollecttionViewControoler
+
+
+#pragma layout
+- (void)layoutSubView:(BOOL)edit;
+{
+    self.editing  = edit;
+    [self.collectionView reloadData];
+}
+
 
 #pragma mark -
 
@@ -58,13 +66,6 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
     [super didReceiveMemoryWarning];
 }
 
-- (void)layoutSubView:(BOOL)edit;
-{
-    editing = edit;
-    [self.collectionView reloadData];
-}
-
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
@@ -94,12 +95,14 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
     
     cell.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.png", [indexPath row] % numOfimg]];
     
-    if (editing)
+    if (self.editing)
     {
         [[cell viewWithTag:selectedTag] setAlpha:cellAHidden];
         cell.imageView.alpha = cellADeactive;
+    }else
+    {
+        [selectedIdx removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
     }
-
     
     // You supposed to highlight the selected cell in here; This is an example
     bool cellSelected = [selectedIdx objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
@@ -126,14 +129,15 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 
 - (void) setCellSelection:(DCCollectionCell *)cell selected:(bool)selected
 {
-    if (editing)
+    if (self.editing)
     {
         cell.imageView.alpha = selected ? cellAAcitve : cellADeactive;
         [cell viewWithTag:selectedTag].alpha = selected ? cellAAcitve : cellAHidden;
         
     }else
     {
-        
+        cell.imageView.alpha = cellAAcitve;
+        [cell viewWithTag:selectedTag].alpha = cellAHidden;
     }
 
 }

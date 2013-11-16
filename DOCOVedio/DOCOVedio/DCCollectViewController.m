@@ -27,9 +27,7 @@
 - (void)setRightBarButton:(BOOL)y
 {
     @autoreleasepool {
-        if (!y) {
-            self.navigationItem.rightBarButtonItem = nil;
-        }else{
+        if (!self.navigationItem.rightBarButtonItem) {
             UIBarButtonItem *edit_done = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(openDeleteView:)];
             [self.navigationItem setRightBarButtonItem:edit_done];
         }
@@ -39,6 +37,8 @@
 {
     [self.navigationItem.rightBarButtonItem setTitle:@"完成"];
     [self.navigationItem.rightBarButtonItem setAction:@selector(cancleDone:)];
+    [collectView layoutSubView:YES];
+    [tabletView  layoutSubView:YES];
     
 //    UIBarButtonItem *allSelect_done = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(openDeleteView:)];
 //    
@@ -58,6 +58,8 @@
 {
     [self.navigationItem.rightBarButtonItem setTitle:@"编辑"];
     [self.navigationItem.rightBarButtonItem setAction:@selector(openDeleteView:)];
+    [collectView layoutSubView:NO];
+    [tabletView  layoutSubView:NO];
 }
 #pragma mark -
 #pragma mark UISegmentedControl
