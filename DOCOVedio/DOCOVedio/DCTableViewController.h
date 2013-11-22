@@ -10,4 +10,6 @@
 
 @interface DCTableViewController : UITableViewController
 - (void)layoutSubView:(BOOL)edit;
+- (void)deletePituresInRange:(BOOL)range;
+- (void)allSelect_done:(BOOL)sender;
 @end

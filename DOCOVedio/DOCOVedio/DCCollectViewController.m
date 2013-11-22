@@ -18,6 +18,10 @@
     BOOL isSelect;
     DCTableViewController *tabletView;
     DCCollecttionViewControoler *collectView;
+    //
+    UIBarButtonItem *all_done;
+    UIBarButtonItem *edit_done;
+    UIBarButtonItem *delete_done;
 }
 @end
 
@@ -27,39 +31,57 @@
 - (void)setRightBarButton:(BOOL)y
 {
     @autoreleasepool {
-        if (!self.navigationItem.rightBarButtonItem) {
-            UIBarButtonItem *edit_done = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(openDeleteView:)];
-            [self.navigationItem setRightBarButtonItem:edit_done];
+        
+        if (!edit_done) {
+            edit_done = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(openDeleteView:)];
         }
+        
+        if (!delete_done) {
+            delete_done = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deletePituresInRange:)];
+        }
+        
+        if (!all_done) {
+            all_done = [[UIBarButtonItem alloc] initWithTitle:@"全选" style:UIBarButtonItemStylePlain target:self action:@selector(allSelect_done:)];
+        }
+        
+        [self.navigationItem
+         setRightBarButtonItems:[NSArray arrayWithObject:edit_done] animated:YES];
     }
 }
 - (void)openDeleteView:(id)sender
 {
-    [self.navigationItem.rightBarButtonItem setTitle:@"完成"];
-    [self.navigationItem.rightBarButtonItem setAction:@selector(cancleDone:)];
     [collectView layoutSubView:YES];
     [tabletView  layoutSubView:YES];
-    
-//    UIBarButtonItem *allSelect_done = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(openDeleteView:)];
-//    
-//    UIBarButtonItem *delete_done = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(deletePituresInRange:)];
+    segment.hidden = YES;
+    scrollerView.scrollEnabled = NO;
+    [edit_done setTitle:@"完成"];
+    [edit_done setAction:@selector(cancleDone:)];
+    [self.navigationItem setRightBarButtonItems:
+    [NSArray arrayWithObjects:edit_done,all_done,delete_done, nil] animated:YES];
 }
 
-- (void)deletePituresInRange:(NSRange)range
+- (void)deletePituresInRange:(id)range
 {
-    
+    [collectView deletePituresInRange:YES];
+    [tabletView  deletePituresInRange:YES];
 }
 
 - (void)allSelect_done:(id)sender
 {
-    
+    [collectView allSelect_done:YES];
+    [tabletView  allSelect_done:YES];
 }
+
 - (void)cancleDone:(id)sender
 {
-    [self.navigationItem.rightBarButtonItem setTitle:@"编辑"];
-    [self.navigationItem.rightBarButtonItem setAction:@selector(openDeleteView:)];
+    [edit_done setTitle:@"编辑"];
+    [edit_done setAction:@selector(openDeleteView:)];
+    [self.navigationItem
+     setRightBarButtonItems:[NSArray arrayWithObject:edit_done] animated:YES];
     [collectView layoutSubView:NO];
     [tabletView  layoutSubView:NO];
+    segment.hidden = NO;
+    scrollerView.scrollEnabled = YES;
 }
 #pragma mark -
 #pragma mark UISegmentedControl
@@ -70,10 +92,10 @@
     if (contentTag[index] == NO) {
         if (index==0) {
             tabletView = [[DCTableViewController alloc] initWithNibName:nil bundle:nil];
-            tabletView.view.size = CGSizeMake( self.view.height, self.view.width-49-71);
-            collectView.view.origin = CGPointMake(0,0);
-            tabletView.view.tag = 1000+index;
+            tabletView.tableView.tag = 1000+index;
             contentTag[index]=YES;
+            tabletView.tableView.size = CGSizeMake( self.view.height, self.view.width-49-71);
+            tabletView.tableView.origin = CGPointMake(0,0);
             
             [(UIScrollView*)scrollerView addSubview:tabletView.view];
         }else if (index==1){

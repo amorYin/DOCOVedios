@@ -17,6 +17,7 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 {
     NSIndexPath *lastAccessed;
     NSMutableDictionary *selectedIdx;
+    NSMutableArray *arrayData;
 }
 @property (nonatomic, strong) DCCollectionLayout *largeLayout;
 @end
@@ -31,7 +32,27 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
     [self.collectionView reloadData];
 }
 
+- (void)deletePituresInRange:(BOOL)range
+{
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+    [[selectedIdx allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([selectedIdx objectForKey:obj]) {
+            [array addObject:[NSIndexPath indexPathForItem:[obj integerValue] inSection:0]];
+            [arrayData removeObjectAtIndex:[obj integerValue]];
+            [selectedIdx removeObjectForKey:obj];
+        }
+    }];
+    
+    [self.collectionView deleteItemsAtIndexPaths:array];
+}
 
+- (void)allSelect_done:(BOOL)sender
+{
+    for (int i= 0; i<arrayData.count; i++)
+        [selectedIdx setObject:@"1" forKey:[NSString stringWithFormat:@"%d",i]];
+    
+    [self.collectionView reloadItemsAtIndexPaths:[self.collectionView indexPathsForVisibleItems]];
+}
 #pragma mark -
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,6 +71,7 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.largeLayout];
     [self.collectionView registerClass:[DCCollectionCell class] forCellWithReuseIdentifier:CellIdentifierLandscape];
     [self.collectionView setAllowsMultipleSelection:YES];
+    arrayData = [NSMutableArray arrayWithObjects:@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1", nil];
 }
 - (void)viewDidLoad
 {
@@ -72,7 +94,7 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return numOfimg * 4;
+    return arrayData.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -107,16 +129,20 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
     // You supposed to highlight the selected cell in here; This is an example
     bool cellSelected = [selectedIdx objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
     [self setCellSelection:cell selected:cellSelected];
-    
+    NSLog(@"%d",indexPath.row);
     return cell;
 }
 //
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DCCollectionCell *cell = (DCCollectionCell*)[collectionView cellForItemAtIndexPath:indexPath];
-    [self setCellSelection:cell selected:YES];
+    if (self.editing)
+    {
+        [self setCellSelection:cell selected:YES];
+        [selectedIdx setValue:@"1" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+    }else{
     
-    [selectedIdx setValue:@"1" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath

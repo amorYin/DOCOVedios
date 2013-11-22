@@ -27,6 +27,15 @@ static NSString *CellIdentifier = @"DCTableViewController";
     [self.tableView reloadData];
 }
 
+- (void)deletePituresInRange:(BOOL)range
+{
+    
+}
+
+- (void)allSelect_done:(BOOL)sender
+{
+    
+}
 #pragma view
 - (id)initWithStyle:(UITableViewStyle)style
 {
