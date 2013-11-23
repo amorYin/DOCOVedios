@@ -18,6 +18,7 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
     NSIndexPath *lastAccessed;
     NSMutableDictionary *selectedIdx;
     NSMutableArray *arrayData;
+    BOOL      killAll;
 }
 @property (nonatomic, strong) DCCollectionLayout *largeLayout;
 @end
@@ -29,27 +30,49 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 - (void)layoutSubView:(BOOL)edit;
 {
     self.editing  = edit;
+    killAll = NO;
     [self.collectionView reloadData];
 }
 
 - (void)deletePituresInRange:(BOOL)range
 {
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
-    [[selectedIdx allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([selectedIdx objectForKey:obj]) {
-            [array addObject:[NSIndexPath indexPathForItem:[obj integerValue] inSection:0]];
-            [arrayData removeObjectAtIndex:[obj integerValue]];
-            [selectedIdx removeObjectForKey:obj];
-        }
-    }];
-    
-    [self.collectionView deleteItemsAtIndexPaths:array];
+    @autoreleasepool {
+        
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+        NSMutableArray *dataArray = [NSMutableArray arrayWithCapacity:0];
+        //find and record the selected cell indexpath
+        [[selectedIdx allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            //find
+            if ([selectedIdx objectForKey:obj]) {
+                //record the changed indexpath
+                [array addObject:[NSIndexPath indexPathForItem:[obj integerValue] inSection:0]];
+                //record the changed obj
+                [dataArray addObject:[arrayData objectAtIndex:[obj integerValue]]];
+                //remove the changed indexpath
+                [selectedIdx removeObjectForKey:obj];
+            }
+        }];
+        //compare the obj and remove from dataSource,avoid error
+        [dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            //remove the change obj
+            [arrayData removeObject:obj];
+        }];
+        //move the selected cell
+        [self.collectionView deleteItemsAtIndexPaths:array];
+        //after update the new view,reset the killAll
+        killAll = NO;
+    }
 }
 
 - (void)allSelect_done:(BOOL)sender
 {
-    for (int i= 0; i<arrayData.count; i++)
-        [selectedIdx setObject:@"1" forKey:[NSString stringWithFormat:@"%d",i]];
+    killAll = !killAll;
+    if (killAll) {
+        for (int i= 0; i<arrayData.count; i++)
+            [selectedIdx setObject:@"1" forKey:[NSString stringWithFormat:@"%d",i]];
+    }else{
+        [selectedIdx removeAllObjects];
+    }
     
     [self.collectionView reloadItemsAtIndexPaths:[self.collectionView indexPathsForVisibleItems]];
 }
@@ -71,7 +94,7 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.largeLayout];
     [self.collectionView registerClass:[DCCollectionCell class] forCellWithReuseIdentifier:CellIdentifierLandscape];
     [self.collectionView setAllowsMultipleSelection:YES];
-    arrayData = [NSMutableArray arrayWithObjects:@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1", nil];
+    arrayData = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"24", nil];
 }
 - (void)viewDidLoad
 {
@@ -138,8 +161,13 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
     DCCollectionCell *cell = (DCCollectionCell*)[collectionView cellForItemAtIndexPath:indexPath];
     if (self.editing)
     {
-        [self setCellSelection:cell selected:YES];
-        [selectedIdx setValue:@"1" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+        if (killAll) {
+            [self setCellSelection:cell selected:NO];
+            [selectedIdx removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+        }else{
+            [self setCellSelection:cell selected:YES];
+            [selectedIdx setValue:@"1" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+        }
     }else{
     
     }
@@ -148,9 +176,18 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     DCCollectionCell *cell = (DCCollectionCell*)[collectionView cellForItemAtIndexPath:indexPath];
-    [self setCellSelection:cell selected:NO];
-    
-    [selectedIdx removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+    if (self.editing)
+    {
+        if (killAll) {
+            [self setCellSelection:cell selected:YES];
+            [selectedIdx setValue:@"1" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+        }else{
+            [self setCellSelection:cell selected:NO];
+            [selectedIdx removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+        }
+    }else{
+        
+    }
 }
 
 - (void) setCellSelection:(DCCollectionCell *)cell selected:(bool)selected
