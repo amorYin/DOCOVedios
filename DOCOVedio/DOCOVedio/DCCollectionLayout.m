@@ -44,7 +44,8 @@
 
 -(CGSize)collectionViewContentSize
 {
-    return CGSizeMake(self.collectionView.width,_cellCount/4*(cellSizeHight+_padding*0.8)+_padding*0.8);
+    CGFloat line = (_cellCount%_perLine>0)?(_cellCount/_perLine+1):(_cellCount/_perLine);
+    return CGSizeMake(self.collectionView.width,line*(cellSizeHight+_padding*0.8)+_padding*0.8);
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)path
