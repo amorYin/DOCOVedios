@@ -22,6 +22,7 @@
     UIBarButtonItem *all_done;
     UIBarButtonItem *edit_done;
     UIBarButtonItem *delete_done;
+    NSMutableArray  *arryData;//数据
 }
 @end
 
@@ -62,8 +63,14 @@
 
 - (void)deletePituresInRange:(id)range
 {
-    [collectView deletePituresInRange:YES];
-    [tabletView  deletePituresInRange:YES];
+    [collectView deletePituresInRange:YES callback:^(NSMutableArray *data) {
+        //if data change reset,nesscery?
+        if (data.count<arryData.count) arryData = data;
+    }];
+    [tabletView  deletePituresInRange:YES callback:^(NSMutableArray *data) {
+        //if data change reset,nesscery?
+        if (data.count<arryData.count) arryData = data;
+    }];
 }
 
 - (void)allSelect_done:(id)sender
@@ -92,6 +99,7 @@
     if (contentTag[index] == NO) {
         if (index==0) {
             tabletView = [[DCTableViewController alloc] initWithNibName:nil bundle:nil];
+            tabletView.arrayData = arryData;
             tabletView.tableView.tag = 1000+index;
             contentTag[index]=YES;
             tabletView.tableView.size = CGSizeMake( self.view.height, self.view.width-49-71);
@@ -100,6 +108,7 @@
             [(UIScrollView*)scrollerView addSubview:tabletView.view];
         }else if (index==1){
             collectView = [[DCCollecttionViewControoler alloc] initWithNibName:nil bundle:nil];
+            collectView.arrayData = arryData;
             collectView.view.tag = 1000+index;
             contentTag[index]=YES;
             collectView.view.size = CGSizeMake( self.view.width, self.view.height-56);
@@ -151,11 +160,14 @@
 
 - (void)viewDidLoad
 {
+    //initlied data
+    arryData = [NSMutableArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19", nil];
 	// Do any additional setup after loading the view.
     if (!scrollerView) {
             scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.height, self.view.width)];
             scrollerView.delegate = self;
             scrollerView.pagingEnabled = YES;
+            scrollerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
             [self.view addSubview:scrollerView];
     }
     

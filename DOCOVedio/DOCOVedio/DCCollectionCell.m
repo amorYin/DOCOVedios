@@ -11,23 +11,23 @@
 
 @end
 @implementation DCCollectionCell
-  - (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        
-        self.contentView.layer.cornerRadius = 10.0;
-        [self.contentView setFrame:CGRectMake(0, 0, cellSizeWidth, cellSizeHight)];
-//        self.contentView.layer.borderWidth = 1.0f;
-        self.contentView.layer.borderColor = [UIColor whiteColor].CGColor;
-        
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectInset(CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame)),30, 30)];
-        self.imageView.origin = CGPointMake(30, 5);
-        self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        [self.contentView addSubview:self.imageView];
-    }
-    return self;
-}
+//  - (id)initWithFrame:(CGRect)frame
+//{
+//    self = [super initWithFrame:frame];
+//    if (self) {
+//        
+//        self.contentView.layer.cornerRadius = 10.0;
+//        [self.contentView setFrame:CGRectMake(0, 0, cellSizeWidth, cellSizeHight)];
+////        self.contentView.layer.borderWidth = 1.0f;
+//        self.contentView.layer.borderColor = [UIColor whiteColor].CGColor;
+//        
+//        self.imageView = [[UIImageView alloc] initWithFrame:CGRectInset(CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame)),30, 30)];
+//        self.imageView.origin = CGPointMake(30, 5);
+//        self.imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//        [self.contentView addSubview:self.imageView];
+//    }
+//    return self;
+//}
 
 -(void)prepareForReuse
 {

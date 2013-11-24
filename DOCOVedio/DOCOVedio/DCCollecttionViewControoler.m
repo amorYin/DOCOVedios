@@ -17,7 +17,6 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 {
     NSIndexPath *lastAccessed;
     NSMutableDictionary *selectedIdx;
-    NSMutableArray *arrayData;
     BOOL      killAll;
 }
 @property (nonatomic, strong) DCCollectionLayout *largeLayout;
@@ -31,36 +30,50 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 {
     self.editing  = edit;
     killAll = NO;
-    [self.collectionView reloadData];
+    if (edit) {
+        //if edit only refresh the changes
+        [self.collectionView reloadItemsAtIndexPaths:[self.collectionView indexPathsForVisibleItems]];
+    }else{
+        //else reload
+        [self.collectionView reloadData];
+    }
 }
 
-- (void)deletePituresInRange:(BOOL)range
+- (void)deletePituresInRange:(BOOL)range callback:(void (^)(NSMutableArray *data))callbak
 {
     @autoreleasepool {
         
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
         NSMutableArray *dataArray = [NSMutableArray arrayWithCapacity:0];
-        //find and record the selected cell indexpath
-        [[selectedIdx allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            //find
-            if ([selectedIdx objectForKey:obj]) {
-                //record the changed indexpath
-                [array addObject:[NSIndexPath indexPathForItem:[obj integerValue] inSection:0]];
-                //record the changed obj
-                [dataArray addObject:[arrayData objectAtIndex:[obj integerValue]]];
-                //remove the changed indexpath
-                [selectedIdx removeObjectForKey:obj];
-            }
-        }];
-        //compare the obj and remove from dataSource,avoid error
-        [dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            //remove the change obj
-            [arrayData removeObject:obj];
-        }];
-        //move the selected cell
-        [self.collectionView deleteItemsAtIndexPaths:array];
+        //had delete
+        if (selectedIdx.count>0) {
+            //find and record the selected cell indexpath
+            [[selectedIdx allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                //find
+                if ([selectedIdx objectForKey:obj]) {
+                    //record the changed indexpath
+                    [array addObject:[NSIndexPath indexPathForRow:[obj integerValue] inSection:0]];
+                    //record the changed obj
+                    [dataArray addObject:[_arrayData objectAtIndex:[obj integerValue]]];
+                    //remove the changed indexpath
+                    [selectedIdx removeObjectForKey:obj];
+                }
+            }];
+            //compare the obj and remove from dataSource,avoid error
+            [dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                //remove the change obj
+                [_arrayData removeObject:obj];
+            }];
+            //move the selected cell
+            [self.collectionView deleteItemsAtIndexPaths:array];
+        }else{
+            
+            //do nothing
+        }
         //after update the new view,reset the killAll
         killAll = NO;
+        //return Data
+        callbak(_arrayData);
     }
 }
 
@@ -68,9 +81,11 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 {
     killAll = !killAll;
     if (killAll) {
-        for (int i= 0; i<arrayData.count; i++)
+        //if killAll  create the all
+        for (int i= 0; i<_arrayData.count; i++)
             [selectedIdx setObject:@"1" forKey:[NSString stringWithFormat:@"%d",i]];
     }else{
+        //else remove all
         [selectedIdx removeAllObjects];
     }
     
@@ -92,9 +107,10 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
         selectedIdx = [[NSMutableDictionary alloc] init];
     self.largeLayout = [[DCCollectionLayout alloc] init];
     self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.largeLayout];
-    [self.collectionView registerClass:[DCCollectionCell class] forCellWithReuseIdentifier:CellIdentifierLandscape];
+//    [self.collectionView registerClass:[DCCollectionCell class] forCellWithReuseIdentifier:CellIdentifierLandscape];
+        [self.collectionView registerNib:[UINib nibWithNibName:@"DCCollectionCell" bundle:nil] forCellWithReuseIdentifier:CellIdentifierLandscape];
     [self.collectionView setAllowsMultipleSelection:YES];
-    arrayData = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",@"21",@"22",@"23",@"24", nil];
+
 }
 - (void)viewDidLoad
 {
@@ -117,7 +133,7 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return arrayData.count;
+    return _arrayData.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -138,7 +154,7 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
         [cell.contentView addSubview:selected];
     }
     
-    cell.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.png", [indexPath row] % numOfimg]];
+    cell.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[_arrayData objectAtIndex: [indexPath row] % numOfimg]]];
     
     if (self.editing)
     {
@@ -152,7 +168,6 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
     // You supposed to highlight the selected cell in here; This is an example
     bool cellSelected = [selectedIdx objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
     [self setCellSelection:cell selected:cellSelected];
-    NSLog(@"%d",indexPath.row);
     return cell;
 }
 //

@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface DCCollecttionViewControoler : UICollectionViewController
+@property (nonatomic,strong)NSMutableArray *arrayData;
 - (void)layoutSubView:(BOOL)edit;
-- (void)deletePituresInRange:(BOOL)range;
+- (void)deletePituresInRange:(BOOL)range callback:(void (^)(NSMutableArray *data))callbak;
 - (void)allSelect_done:(BOOL)sender;
 @end

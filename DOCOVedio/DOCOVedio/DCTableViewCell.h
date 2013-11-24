@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface DCTableViewCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @end

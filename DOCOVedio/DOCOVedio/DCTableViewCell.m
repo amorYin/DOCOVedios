@@ -12,11 +12,13 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"DCTableViewCell" owner:self options:nil];
+    for (id obj in nib) {
+        if ([obj  isMemberOfClass:[DCTableViewCell class]]) {
+            return obj;
+        }
     }
-    return self;
+    return nil;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -24,6 +26,11 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)layoutSubviews
+{
+    
 }
 
 @end

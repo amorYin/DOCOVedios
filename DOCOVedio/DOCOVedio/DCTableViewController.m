@@ -9,11 +9,13 @@
 #import "DCTableViewController.h"
 #import "DCTableViewCell.h"
 
-static NSString *CellIdentifier = @"DCTableViewController";
+static NSString *CellIdentifier = @"DCTableViewControllerCell";
 @interface DCTableViewController ()
 {
     NSIndexPath *lastAccessed;
     NSMutableDictionary *selectedIdx;
+    BOOL      killAll;
+    BOOL      editStart;
 }
 @end
 
@@ -23,18 +25,72 @@ static NSString *CellIdentifier = @"DCTableViewController";
 #pragma layout
 - (void)layoutSubView:(BOOL)edit;
 {
-    self.editing  = edit;
-    [self.tableView reloadData];
+    //set editing
+    editStart  = edit;
+    //set killAll
+    killAll    = NO;
+    //reloadRadta
+    if (edit) {
+        //if edit only refresh the changes
+        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationFade];
+    }else{
+        //else reload
+        [self.tableView reloadData];
+    }
+
 }
 
-- (void)deletePituresInRange:(BOOL)range
+- (void)deletePituresInRange:(BOOL)range callback:(void (^)(NSMutableArray *data))callbak
 {
-    
+    @autoreleasepool {
+        
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+        NSMutableArray *dataArray = [NSMutableArray arrayWithCapacity:0];
+        //had delete
+        if (selectedIdx.count>0) {
+            //find and record the selected cell indexpath
+            [[selectedIdx allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                //find
+                if ([selectedIdx objectForKey:obj]) {
+                    //record the changed indexpath
+                    [array addObject:[NSIndexPath indexPathForRow:[obj integerValue] inSection:0]];
+                    //record the changed obj
+                    [dataArray addObject:[_arrayData objectAtIndex:[obj integerValue]]];
+                    //remove the changed indexpath
+                    [selectedIdx removeObjectForKey:obj];
+                }
+            }];
+            //compare the obj and remove from dataSource,avoid error
+            [dataArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                //remove the change obj
+                [_arrayData removeObject:obj];
+            }];
+            //move the selected cell
+            [self.tableView deleteRowsAtIndexPaths:array withRowAnimation:UITableViewRowAnimationFade];
+        }else{
+        
+            //do nothing
+        }
+        //after update the new view,reset the killAll
+        killAll = NO;
+        //return Data
+        callbak(_arrayData);
+    }
 }
 
 - (void)allSelect_done:(BOOL)sender
 {
+    killAll = !killAll;
+    if (killAll) {
+        //if killAll  create the all
+        for (int i= 0; i<_arrayData.count; i++)
+            [selectedIdx setObject:@"1" forKey:[NSString stringWithFormat:@"%d",i]];
+    }else{
+        //else remove all
+        [selectedIdx removeAllObjects];
+    }
     
+    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationFade];
 }
 #pragma view
 - (id)initWithStyle:(UITableViewStyle)style
@@ -80,13 +136,13 @@ static NSString *CellIdentifier = @"DCTableViewController";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 20;
+    return _arrayData.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return the height for rows
-    return 100.;
+    return 280.;
 }
 
 - (DCTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -95,21 +151,6 @@ static NSString *CellIdentifier = @"DCTableViewController";
     // Configure the cell...
     cell.textLabel.text = [NSString stringWithFormat:@"%d",indexPath.row];
     return cell;
-}
-
-- (void) setCellSelection:(DCTableViewCell *)cell selected:(bool)selected
-{
-    if (self.editing)
-    {
-        cell.imageView.alpha = selected ? cellAAcitve : cellADeactive;
-        [cell viewWithTag:selectedTag].alpha = selected ? cellAAcitve : cellAHidden;
-        
-    }else
-    {
-        cell.imageView.alpha = cellAAcitve;
-        [cell viewWithTag:selectedTag].alpha = cellAHidden;
-    }
-    
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(DCTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -127,13 +168,12 @@ static NSString *CellIdentifier = @"DCTableViewController";
         
         [cell.contentView addSubview:selected];
     }
+     cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[_arrayData objectAtIndex: [indexPath row] % numOfimg]]];
 
-    cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d.png", [indexPath row] % numOfimg]];
-    
-    if (self.editing)
+    if (editStart)
     {
         [[cell viewWithTag:selectedTag] setAlpha:cellAHidden];
-        cell.imageView.alpha = cellADeactive;
+        cell.contentView.alpha = cellADeactive;
     }else
     {
         [selectedIdx removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
@@ -143,15 +183,55 @@ static NSString *CellIdentifier = @"DCTableViewController";
     bool cellSelected = [selectedIdx objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
     [self setCellSelection:cell selected:cellSelected];
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (void) setCellSelection:(DCTableViewCell *)cell selected:(bool)selected
 {
-    [selectedIdx setValue:@"1" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+    if (self.editing)
+    {
+        cell.contentView.alpha = selected ? cellAAcitve : cellADeactive;
+        [cell viewWithTag:selectedTag].alpha = selected ? cellAAcitve : cellAHidden;
+        
+    }else
+    {
+        cell.contentView.alpha = cellAAcitve;
+        [cell viewWithTag:selectedTag].alpha = cellAHidden;
+    }
+    
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [selectedIdx removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+    DCTableViewCell *cell = (DCTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+    if (editStart)
+    {
+        if (killAll) {
+            [self setCellSelection:cell selected:NO];
+            [selectedIdx removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+        }else{
+            [self setCellSelection:cell selected:YES];
+            [selectedIdx setValue:@"1" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+        }
+    }else{
+        
+    }
 }
+
+//- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    DCTableViewCell *cell = (DCTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+//    if (editStart)
+//    {
+//        if (killAll) {
+//            [self setCellSelection:cell selected:YES];
+//            [selectedIdx setValue:@"1" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+//        }else{
+//            [self setCellSelection:cell selected:NO];
+//            [selectedIdx removeObjectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
+//        }
+//    }else{
+//        
+//    }
+//}
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {

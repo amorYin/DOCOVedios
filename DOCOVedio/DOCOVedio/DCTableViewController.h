@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface DCTableViewController : UITableViewController
+@property (nonatomic,strong)NSMutableArray *arrayData;
 - (void)layoutSubView:(BOOL)edit;
-- (void)deletePituresInRange:(BOOL)range;
+- (void)deletePituresInRange:(BOOL)range callback:(void (^)(NSMutableArray *data))callbak;
 - (void)allSelect_done:(BOOL)sender;
 @end

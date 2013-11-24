@@ -9,6 +9,7 @@
 #import "DCDownloadViewController.h"
 #import "DCCollecttionViewControoler.h"
 #import "DCTableViewController.h"
+#import "DCShowDeviceInfoView.h"
 
 @interface DCDownloadViewController ()<UIScrollViewDelegate>
 {
@@ -18,10 +19,13 @@
     BOOL isSelect;
     DCTableViewController *tabletView;
     DCCollecttionViewControoler *collectView;
+    DCShowDeviceInfoView *showDeviceInfo;
     //
     UIBarButtonItem *all_done;
     UIBarButtonItem *edit_done;
     UIBarButtonItem *delete_done;
+    
+     NSMutableArray  *arryData;//数据
 }
 @end
 
@@ -62,8 +66,14 @@
 
 - (void)deletePituresInRange:(id)range
 {
-    [collectView deletePituresInRange:YES];
-    [tabletView  deletePituresInRange:YES];
+    [collectView deletePituresInRange:YES callback:^(NSMutableArray *data) {
+        //if data change reset,nesscery?
+        if (data.count<arryData.count) arryData = data;
+    }];
+    [tabletView  deletePituresInRange:YES callback:^(NSMutableArray *data) {
+        //if data change reset,nesscery?
+        if (data.count<arryData.count) arryData = data;
+    }];
 }
 
 - (void)allSelect_done:(id)sender
@@ -82,6 +92,8 @@
     [tabletView  layoutSubView:NO];
     segment.hidden = NO;
     scrollerView.scrollEnabled = YES;
+    //
+    [showDeviceInfo refresh];
 }
 #pragma mark -
 #pragma mark UISegmentedControl
@@ -92,17 +104,19 @@
     if (contentTag[index] == NO) {
         if (index==0) {
             tabletView = [[DCTableViewController alloc] initWithNibName:nil bundle:nil];
+            tabletView.arrayData = arryData;
             tabletView.tableView.tag = 1000+index;
             contentTag[index]=YES;
-            tabletView.tableView.size = CGSizeMake( self.view.height, self.view.width-49-71);
+            tabletView.tableView.size = CGSizeMake( self.view.height, self.view.width-49-71-40);
             tabletView.tableView.origin = CGPointMake(0,0);
             
             [(UIScrollView*)scrollerView addSubview:tabletView.view];
         }else if (index==1){
             collectView = [[DCCollecttionViewControoler alloc] initWithNibName:nil bundle:nil];
+            collectView.arrayData = arryData;
             collectView.view.tag = 1000+index;
             contentTag[index]=YES;
-            collectView.view.size = CGSizeMake( self.view.width, self.view.height-49-71);
+            collectView.view.size = CGSizeMake( self.view.width, self.view.height-49-71-40);
             collectView.view.origin = CGPointMake(self.view.width,0);
             
             [(UIScrollView*)scrollerView addSubview:collectView.view];
@@ -152,12 +166,21 @@
 
 - (void)viewDidLoad
 {
+    //initlied data
+    arryData = [NSMutableArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19", nil];
 	// Do any additional setup after loading the view.
     if (!scrollerView) {
         scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.navigationController.navigationBar.frame), self.view.height, self.view.width-CGRectGetMaxY(self.navigationController.navigationBar.frame)-49)];
         scrollerView.delegate = self;
         scrollerView.pagingEnabled = YES;
+        scrollerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         [self.view addSubview:scrollerView];
+    }
+    
+    if (!showDeviceInfo) {
+        showDeviceInfo = [[DCShowDeviceInfoView alloc] initWithFrame:CGRectMake(0, self.view.width-40-49, self.view.height, 40)];
+        
+        [self.view addSubview:showDeviceInfo];
     }
     
     if (!segment) {
