@@ -85,7 +85,6 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
         for (int i= 0; i<_arrayData.count; i++)
             [selectedIdx setObject:@"1" forKey:[NSString stringWithFormat:@"%d",i]];
     }else{
-        //else remove all
         [selectedIdx removeAllObjects];
     }
     
@@ -154,7 +153,7 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
         [cell.contentView addSubview:selected];
     }
     
-    cell.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[_arrayData objectAtIndex: [indexPath row] % numOfimg]]];
+    cell.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[_arrayData objectAtIndex: [indexPath row] ]]];
     
     if (self.editing)
     {

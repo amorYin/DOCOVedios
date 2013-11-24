@@ -168,7 +168,7 @@ static NSString *CellIdentifier = @"DCTableViewControllerCell";
         
         [cell.contentView addSubview:selected];
     }
-     cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[_arrayData objectAtIndex: [indexPath row] % numOfimg]]];
+     cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[_arrayData objectAtIndex: [indexPath row]]]];
 
     if (editStart)
     {

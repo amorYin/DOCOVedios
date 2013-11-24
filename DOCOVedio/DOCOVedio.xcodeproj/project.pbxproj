@@ -27,6 +27,10 @@
 		2DCA68851832616600075145 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2DCA68831832616600075145 /* InfoPlist.strings */; };
 		2DCA68871832616600075145 /* DOCOVedioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCA68861832616600075145 /* DOCOVedioTests.m */; };
 		2DCF81241841A92C00804836 /* DCShowDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCF81231841A92C00804836 /* DCShowDeviceInfoView.m */; };
+		2DCF81301841C63E00804836 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2DCF81281841C63E00804836 /* MJRefresh.bundle */; };
+		2DCF81311841C63E00804836 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCF812B1841C63E00804836 /* MJRefreshBaseView.m */; };
+		2DCF81321841C63E00804836 /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCF812D1841C63E00804836 /* MJRefreshFooterView.m */; };
+		2DCF81331841C63E00804836 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCF812F1841C63E00804836 /* MJRefreshHeaderView.m */; };
 		2DD3F7031833A93600F712E5 /* DCLastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7021833A93600F712E5 /* DCLastViewController.m */; };
 		2DD3F7061833A94D00F712E5 /* DCNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7051833A94D00F712E5 /* DCNewViewController.m */; };
 		2DD3F7091833A95F00F712E5 /* DCCollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD3F7081833A95F00F712E5 /* DCCollectViewController.m */; };
@@ -98,6 +102,14 @@
 		2DCA68861832616600075145 /* DOCOVedioTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DOCOVedioTests.m; sourceTree = "<group>"; };
 		2DCF81221841A92C00804836 /* DCShowDeviceInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCShowDeviceInfoView.h; sourceTree = "<group>"; };
 		2DCF81231841A92C00804836 /* DCShowDeviceInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCShowDeviceInfoView.m; sourceTree = "<group>"; };
+		2DCF81281841C63E00804836 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
+		2DCF81291841C63E00804836 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
+		2DCF812A1841C63E00804836 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
+		2DCF812B1841C63E00804836 /* MJRefreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshBaseView.m; sourceTree = "<group>"; };
+		2DCF812C1841C63E00804836 /* MJRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshFooterView.h; sourceTree = "<group>"; };
+		2DCF812D1841C63E00804836 /* MJRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshFooterView.m; sourceTree = "<group>"; };
+		2DCF812E1841C63E00804836 /* MJRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshHeaderView.h; sourceTree = "<group>"; };
+		2DCF812F1841C63E00804836 /* MJRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshHeaderView.m; sourceTree = "<group>"; };
 		2DD3F7011833A93600F712E5 /* DCLastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCLastViewController.h; sourceTree = "<group>"; };
 		2DD3F7021833A93600F712E5 /* DCLastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCLastViewController.m; sourceTree = "<group>"; };
 		2DD3F7041833A94D00F712E5 /* DCNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCNewViewController.h; sourceTree = "<group>"; };
@@ -207,6 +219,7 @@
 		2DCA685E1832616600075145 /* DOCOVedio */ = {
 			isa = PBXGroup;
 			children = (
+				2DCF81271841C63E00804836 /* MJRefresh */,
 				2DBD39421841079100FC5401 /* protocol */,
 				2DD3F7181833AD1400F712E5 /* init */,
 				2DD3F7141833ACE900F712E5 /* tools */,
@@ -259,6 +272,21 @@
 				2DCA68831832616600075145 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2DCF81271841C63E00804836 /* MJRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				2DCF81281841C63E00804836 /* MJRefresh.bundle */,
+				2DCF81291841C63E00804836 /* MJRefresh.h */,
+				2DCF812A1841C63E00804836 /* MJRefreshBaseView.h */,
+				2DCF812B1841C63E00804836 /* MJRefreshBaseView.m */,
+				2DCF812C1841C63E00804836 /* MJRefreshFooterView.h */,
+				2DCF812D1841C63E00804836 /* MJRefreshFooterView.m */,
+				2DCF812E1841C63E00804836 /* MJRefreshHeaderView.h */,
+				2DCF812F1841C63E00804836 /* MJRefreshHeaderView.m */,
+			);
+			path = MJRefresh;
 			sourceTree = "<group>";
 		};
 		2DD3F7131833ACD100F712E5 /* objects */ = {
@@ -430,6 +458,7 @@
 				52AD16761834C61C0053289D /* 6.png in Resources */,
 				52AD166E1834C61C0053289D /* 16.png in Resources */,
 				2DBD38F71840DD0500FC5401 /* DCCollectionCell.xib in Resources */,
+				2DCF81301841C63E00804836 /* MJRefresh.bundle in Resources */,
 				52AD16691834C61C0053289D /* 11.png in Resources */,
 				52AD16671834C61C0053289D /* 1.png in Resources */,
 				52AD16701834C61C0053289D /* 18.png in Resources */,
@@ -453,6 +482,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DCF81331841C63E00804836 /* MJRefreshHeaderView.m in Sources */,
 				2DCF81241841A92C00804836 /* DCShowDeviceInfoView.m in Sources */,
 				2DBD3941184104B400FC5401 /* BaseTools.c in Sources */,
 				2DD3F7061833A94D00F712E5 /* DCNewViewController.m in Sources */,
@@ -464,6 +494,8 @@
 				2DC17D8E183678C1004F22EA /* DCTableViewCell.m in Sources */,
 				2DD3F7171833AD1000F712E5 /* UIView+DCView.m in Sources */,
 				2DD3F7031833A93600F712E5 /* DCLastViewController.m in Sources */,
+				2DCF81311841C63E00804836 /* MJRefreshBaseView.m in Sources */,
+				2DCF81321841C63E00804836 /* MJRefreshFooterView.m in Sources */,
 				2DD3F7091833A95F00F712E5 /* DCCollectViewController.m in Sources */,
 				2DC17D8618364ED9004F22EA /* DCTableViewController.m in Sources */,
 				2DCA68691832616600075145 /* DCAppDelegate.m in Sources */,

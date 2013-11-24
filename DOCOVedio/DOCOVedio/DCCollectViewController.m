@@ -9,8 +9,9 @@
 #import "DCCollectViewController.h"
 #import "DCCollecttionViewControoler.h"
 #import "DCTableViewController.h"
+#import "MJRefresh.h"
 
-@interface DCCollectViewController ()<UIScrollViewDelegate>
+@interface DCCollectViewController ()<UIScrollViewDelegate,MJRefreshBaseViewDelegate>
 {
     UISegmentedControl *segment;
     UIScrollView *scrollerView;
@@ -18,6 +19,7 @@
     BOOL isSelect;
     DCTableViewController *tabletView;
     DCCollecttionViewControoler *collectView;
+    MJRefreshHeaderView *_header;
     //
     UIBarButtonItem *all_done;
     UIBarButtonItem *edit_done;
@@ -27,6 +29,7 @@
 @end
 
 @implementation DCCollectViewController
+
 #pragma mark -
 #pragma mark - UIBarButtonItem
 - (void)setRightBarButton:(BOOL)y
@@ -119,8 +122,10 @@
         
         }
     }
+    UIScrollView *tempView = (UIScrollView*)[self.view viewWithTag:1000+index];
+    _header.scrollView = tempView;
     if (show) {
-        UIView *tempView = [self.view viewWithTag:1000+index];
+        
         [(UIScrollView*)scrollerView scrollRectToVisible:tempView.frame animated:YES];
     }
 }
@@ -129,6 +134,37 @@
 {
     isSelect = YES;
     [self reachableViewAtIndex:seg.selectedSegmentIndex scroller:YES];
+}
+
+#pragma mark -  refresh view delegate
+- (void)refreshViewBeginRefreshing:(MJRefreshBaseView *)refreshView
+{
+    if (refreshView == _header) { // 下拉刷新
+        //关闭界面切换
+        segment.enabled = NO;
+        scrollerView.scrollEnabled = NO;
+        // 增加9个假数据
+        for (int i = 0; i<7; i++) {
+            [arryData insertObject:[NSString stringWithFormat:@"3%d",i] atIndex:0];
+        }
+        
+        // 2秒后刷新表格
+        [self performSelector:@selector(reloadDeals) withObject:nil afterDelay:2];
+    }
+}
+
+#pragma mark - refresh
+- (void)reloadDeals
+{
+    //刷新数据
+    [collectView layoutSubView:NO];
+    [tabletView  layoutSubView:NO];
+    // 结束刷新状态
+    [_header endRefreshing];
+    //打开界面切换
+    segment.enabled = YES;
+    scrollerView.scrollEnabled = YES;
+    
 }
 
 #pragma mark -
@@ -170,6 +206,11 @@
             scrollerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
             [self.view addSubview:scrollerView];
     }
+    //refresh
+    if (!_header) {
+        _header = [MJRefreshHeaderView header];
+        _header.delegate = self;
+    }
     
     if (!segment) {
             segment = [[UISegmentedControl alloc] initWithItems:@[@"普通",@"网状"]];
@@ -192,6 +233,11 @@
     scrollerView = nil;
     tabletView = nil;
     collectView = nil;
+    _header = nil;
+    arryData = nil;
+    all_done = nil;
+    delete_done = nil;
+    edit_done = nil;
 }
 - (void)didReceiveMemoryWarning
 {
