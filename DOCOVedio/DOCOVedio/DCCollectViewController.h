@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface DCCollectViewController : UIViewController
+#import "DCViewController.h"
+@interface DCCollectViewController : DCViewController
 
 @end

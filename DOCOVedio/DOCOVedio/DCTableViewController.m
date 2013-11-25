@@ -106,6 +106,7 @@ static NSString *CellIdentifier = @"DCTableViewControllerCell";
 {
     [super loadView];
     selectedIdx = [[NSMutableDictionary alloc] init];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[DCTableViewCell class] forCellReuseIdentifier:CellIdentifier];
 }
 - (void)viewDidLoad

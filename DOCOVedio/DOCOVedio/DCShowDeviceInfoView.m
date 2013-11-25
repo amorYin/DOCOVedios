@@ -135,12 +135,12 @@
         otherSize.size = CGSizeMake(other/toltal*maxWidth, 20);
         padding = other/toltal*maxWidth;
         
-        usedSize.text = [NSString stringWithFormat:@"已使用%.2fG",(toltal-free-other)/1024];
+        usedSize.text = [NSString stringWithFormat:@"   已使用%.2fG",(toltal-free-other)/1024];
         usedSize.origin = CGPointMake(padding, 0);
         usedSize.size = CGSizeMake((toltal-free-other)/toltal*maxWidth, 20);
         padding = padding + (toltal-free-other)/toltal*maxWidth;
         
-        freeSize.text = [NSString stringWithFormat:@"可用%.2fG",free/1024];
+        freeSize.text = [NSString stringWithFormat:@"   可用%.2fG",free/1024];
         freeSize.origin = CGPointMake(padding, 0);
         freeSize.size = CGSizeMake(free/toltal*maxWidth, 20);
     } completion:^(BOOL finished) {

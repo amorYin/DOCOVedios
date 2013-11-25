@@ -11,15 +11,14 @@
 #import "DCTableViewController.h"
 #import "DCShowDeviceInfoView.h"
 
-@interface DCDownloadViewController ()<UIScrollViewDelegate>
+@interface DCDownloadViewController ()
 {
-    UISegmentedControl *segment;
-    UIScrollView *scrollerView;
     char contentTag[2];
     BOOL isSelect;
     DCTableViewController *tabletView;
     DCCollecttionViewControoler *collectView;
     DCShowDeviceInfoView *showDeviceInfo;
+    
     //
     UIBarButtonItem *all_done;
     UIBarButtonItem *edit_done;
@@ -56,8 +55,8 @@
 {
     [collectView layoutSubView:YES];
     [tabletView  layoutSubView:YES];
-    segment.hidden = YES;
-    scrollerView.scrollEnabled = NO;
+    self.segment.hidden = YES;
+    self.scrollerView.scrollEnabled = NO;
     [edit_done setTitle:@"完成"];
     [edit_done setAction:@selector(cancleDone:)];
     [self.navigationItem setRightBarButtonItems:
@@ -66,14 +65,17 @@
 
 - (void)deletePituresInRange:(id)range
 {
-    [collectView deletePituresInRange:YES callback:^(NSMutableArray *data) {
-        //if data change reset,nesscery?
-        if (data.count<arryData.count) arryData = data;
-    }];
-    [tabletView  deletePituresInRange:YES callback:^(NSMutableArray *data) {
-        //if data change reset,nesscery?
-        if (data.count<arryData.count) arryData = data;
-    }];
+    if (self.segment.selectedSegmentIndex==0) {
+        [tabletView  deletePituresInRange:YES callback:^(NSMutableArray *data) {
+            //if data change reset,nesscery?
+            if (data.count<arryData.count) arryData = data;
+        }];
+    }else{
+        [collectView deletePituresInRange:YES callback:^(NSMutableArray *data) {
+            //if data change reset,nesscery?
+            if (data.count<arryData.count) arryData = data;
+        }];
+    }
 }
 
 - (void)allSelect_done:(id)sender
@@ -90,8 +92,8 @@
      setRightBarButtonItems:[NSArray arrayWithObject:edit_done] animated:YES];
     [collectView layoutSubView:NO];
     [tabletView  layoutSubView:NO];
-    segment.hidden = NO;
-    scrollerView.scrollEnabled = YES;
+    self.segment.hidden = NO;
+    self.scrollerView.scrollEnabled = YES;
     //
     [showDeviceInfo refresh];
 }
@@ -99,7 +101,7 @@
 #pragma mark UISegmentedControl
 - (void)reachableViewAtIndex:(NSInteger)index scroller:(BOOL)show
 {
-    segment.selectedSegmentIndex = index;
+    self.segment.selectedSegmentIndex = index;
     [self setRightBarButton:index==1];
     if (contentTag[index] == NO) {
         if (index==0) {
@@ -110,16 +112,16 @@
             tabletView.tableView.size = CGSizeMake( self.view.height, self.view.width-49-71-40);
             tabletView.tableView.origin = CGPointMake(0,0);
             
-            [(UIScrollView*)scrollerView addSubview:tabletView.view];
+            [(UIScrollView*)self.scrollerView addSubview:tabletView.view];
         }else if (index==1){
             collectView = [[DCCollecttionViewControoler alloc] initWithNibName:nil bundle:nil];
             collectView.arrayData = arryData;
             collectView.view.tag = 1000+index;
             contentTag[index]=YES;
-            collectView.view.size = CGSizeMake( self.view.width, self.view.height-49-71-40);
+            collectView.view.size = CGSizeMake( self.view.width, self.view.height-56-40);
             collectView.view.origin = CGPointMake(self.view.width,0);
             
-            [(UIScrollView*)scrollerView addSubview:collectView.view];
+            [(UIScrollView*)self.scrollerView addSubview:collectView.view];
         }else{
             
         }
@@ -127,7 +129,7 @@
     
     if (show) {
         UIView *tempView = [self.view viewWithTag:1000+index];
-        [(UIScrollView*)scrollerView scrollRectToVisible:tempView.frame animated:YES];
+        [(UIScrollView*)self.scrollerView scrollRectToVisible:tempView.frame animated:YES];
     }
 }
 //seg
@@ -166,44 +168,41 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     //initlied data
     arryData = [NSMutableArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19", nil];
 	// Do any additional setup after loading the view.
-    if (!scrollerView) {
-        scrollerView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.navigationController.navigationBar.frame), self.view.height, self.view.width-CGRectGetMaxY(self.navigationController.navigationBar.frame)-49)];
-        scrollerView.delegate = self;
-        scrollerView.pagingEnabled = YES;
-        scrollerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-        [self.view addSubview:scrollerView];
-    }
-    
     if (!showDeviceInfo) {
-        showDeviceInfo = [[DCShowDeviceInfoView alloc] initWithFrame:CGRectMake(0, self.view.width-40-49, self.view.height, 40)];
+        showDeviceInfo = [[DCShowDeviceInfoView alloc] initWithFrame:CGRectMake(0, self.view.width-40-49-65, self.view.height, 40)];
         
         [self.view addSubview:showDeviceInfo];
     }
-    
-    if (!segment) {
-        segment = [[UISegmentedControl alloc] initWithItems:@[@"普通",@"网状"]];
-        segment.frame = CGRectMake(0, 0, 200, 36);
+    //segment
+    if (!self.segment) {
+        self.segment = [[UISegmentedControl alloc] initWithItems:@[@"普通",@"网状"]];
+        self.segment.frame = CGRectMake(0, 0, 200, 36);
         
-        [segment addTarget:self action:@selector(changeNewView:) forControlEvents:UIControlEventValueChanged];
-        [self.navigationController.navigationBar addSubview:segment];
+        [self.segment addTarget:self action:@selector(changeNewView:) forControlEvents:UIControlEventValueChanged];
+        [self.navigationController.navigationBar addSubview:self.segment];
     }
     
-    segment.center = CGPointMake(AppFrame.height*0.5,self.navigationController.navigationBar.centerY*0.5);
-    scrollerView.contentSize = CGSizeMake(self.view.height*2, self.view.width-49-64);
+    self.segment.center = CGPointMake(AppFrame.height*0.5,self.navigationController.navigationBar.centerY*0.5);
+    self.scrollerView.contentSize = CGSizeMake(self.view.height*2, self.view.width-49-64);
     
     [self reachableViewAtIndex:0 scroller:YES];
 }
 
 - (void)viewDidUnload
 {
-    segment =nil;
+    self.segment =nil;
     memset(contentTag, 0, sizeof(NO));
-    scrollerView = nil;
+    self.scrollerView = nil;
     tabletView = nil;
     collectView = nil;
+    arryData = nil;
+    all_done = nil;
+    delete_done = nil;
+    edit_done = nil;
 }
 - (void)didReceiveMemoryWarning
 {

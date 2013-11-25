@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface DCLastViewController : UIViewController
+#import "DCViewController.h"
+@interface DCLastViewController : DCViewController
 
 @end

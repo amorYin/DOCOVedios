@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller - 我的收藏-->
@@ -46,7 +46,9 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="Ocq-iZ-E6q" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="4" title="下 载" image="second" id="LLQ-G6-gR8"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vif-oN-NsP">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Vif-oN-NsP">
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -60,19 +62,19 @@
         <!--Download View Controller-->
         <scene sceneID="BWN-1e-JN0">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wrY-Ws-0Ie" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="zCf-wV-NA2" customClass="DCDownloadViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3C2-2k-WDs"/>
                         <viewControllerLayoutGuide type="bottom" id="Dyn-jW-nqP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ygQ-OG-Xfi">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="kNc-B4-QwU"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wrY-Ws-0Ie" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3210" y="2014"/>
         </scene>
@@ -81,7 +83,9 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="IYv-fh-r9n" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="2" title="DOCO 预告" image="second" id="tcS-X2-hHG"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FGr-pl-OTw">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="FGr-pl-OTw">
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -101,7 +105,7 @@
                         <viewControllerLayoutGuide type="bottom" id="dnG-QT-xBt"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8ad-Yq-Pyw">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -116,7 +120,9 @@
             <objects>
                 <navigationController title="DOCO收藏" definesPresentationContext="YES" id="HNX-81-PqD" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="1" title="DOCO 最新" image="first" id="fbn-ai-bua"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uSJ-iw-zeb">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="uSJ-iw-zeb">
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -136,7 +142,7 @@
                         <viewControllerLayoutGuide type="bottom" id="1Nu-5x-ptS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bWK-bw-S9d">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>

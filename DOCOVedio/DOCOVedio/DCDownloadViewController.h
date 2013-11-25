@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface DCDownloadViewController : UIViewController
+#import "DCViewController.h"
+@interface DCDownloadViewController : DCViewController
 
 @end

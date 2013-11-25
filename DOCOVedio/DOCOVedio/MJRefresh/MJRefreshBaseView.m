@@ -228,4 +228,20 @@
 {
     [self setState:RefreshStateNormal];
 }
+
+- (void)free
+{
+    
+}
+
+// 合理的Y值
+- (CGFloat)validY
+{
+    return 0.;
+}
+// view的类型
+- (int)viewType
+{
+    return 0;
+}
 @end
