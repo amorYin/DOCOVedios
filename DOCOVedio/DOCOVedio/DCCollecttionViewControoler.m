@@ -43,7 +43,12 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
         }
     }];
     
-    [self.collectionView deleteItemsAtIndexPaths:array];
+    if (array.count!=arrayData.count) {
+        [self.collectionView deleteItemsAtIndexPaths:array];
+    }else{
+    
+    }
+    
 }
 
 - (void)allSelect_done:(BOOL)sender
@@ -129,7 +134,6 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
     // You supposed to highlight the selected cell in here; This is an example
     bool cellSelected = [selectedIdx objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]];
     [self setCellSelection:cell selected:cellSelected];
-    NSLog(@"%d",indexPath.row);
     return cell;
 }
 //
@@ -165,7 +169,6 @@ static NSString *CellIdentifierLandscape = @"CellIdentifierLandscape";
         cell.imageView.alpha = cellAAcitve;
         [cell viewWithTag:selectedTag].alpha = cellAHidden;
     }
-
 }
 
 - (void) resetSelectedCells
